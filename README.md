@@ -1,11 +1,17 @@
-## 構築結果
-Dockerコンテナ上でNginxが正常に稼働している
-![成功画面](./docs/images/result.png)
+### Application Web Container
 
-プロジェクト概要: なぜこの検証を行ったのか（例：コンテナ化の基礎学習、CI/CDパイプラインの練習など）。
+Webアプリケーションをコンテナ環境（Docker）で安定稼働させるための設定リポジトリ
 
-使用技術: Docker, Nginx など。
+### Architecture Overview
+開発環境から本番環境まで同一のコンテナイメージを使用することで環境による動作差異を解消する
 
-クイックスタート: 他の人がこのリポジトリをcloneして、手元で動かすための手順（docker build, docker run コマンドなど）。
-
-苦労した点・学んだこと: ここがエンジニアとしての思考力を示す重要なセクションです。
+```mermaid
+graph LR
+    Code[Source Code] --> Dockerfile
+    Dockerfile --> Build[Docker Build]
+    Build --> Image[Container Image]
+    Image --> Registry[Container Registry]
+    Registry --> Container[Run Container]
+    subgraph Environment
+        Container --> App[Web App]
+    end
